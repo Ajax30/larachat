@@ -49,8 +49,29 @@ class UserController extends Controller
 			return response($response, 201);
   }
 
-	public function signin() {
-		return 'User logged in';
+	public function signin(Request $request) {
+
+		$fields = $request->validate([
+			'email' => 'required|string',
+			'password' => 'required|string'
+		]);
+
+		// Check email
+		$user = User::where('email', $fields['email'])->first();
+
+		// Check password
+		if(!$user || !Hash::check($fields['password'], $user->password)) {
+			return response(['message' => 'Incorrect email and/or password'], 401);
+		}
+
+		$token = $user->createToken('secret-token')->plainTextToken;
+
+		$response = [
+			'user' => $user,
+			'token' => $token
+		];
+
+		return response($response, 201);
 	}
     
 }

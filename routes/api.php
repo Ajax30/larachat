@@ -16,7 +16,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::post('/signup', [UserController::class, 'signup']);
-Route::get('/signin', [UserController::class, 'signin']);
+Route::post('/signin', [UserController::class, 'signin']);
 
 // Route::group(['middleware' => ['jwt']], function () {
 
