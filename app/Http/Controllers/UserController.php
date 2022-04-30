@@ -73,5 +73,15 @@ class UserController extends Controller
 
 		return response($response, 201);
 	}
+
+	public function signout() {
+    auth()->user()->tokens->each(function($token) {
+      $token->delete();
+    });
+
+    return [
+      'message' => 'You have been signed out'
+    ];
+	}
     
 }
