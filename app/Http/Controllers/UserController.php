@@ -76,11 +76,11 @@ class UserController extends Controller
 
 	public function signout() {
     auth()->user()->tokens->each(function($token) {
-        $token->delete();
+      $token->delete();
     });
 
     return [
-        'message' => 'You have been signed out'
+      'message' => 'You have been signed out'
     ];
 	}
     
